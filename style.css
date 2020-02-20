@@ -1,0 +1,42 @@
+#plateau{
+    display: flex;
+    flex-wrap:wrap;
+}
+.dice-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.dice,.face{
+    border-radius: 0.7em;
+    width: 4em;
+    height: 4em;
+    line-height: 4em;
+    text-align: center;
+    border: 2px solid black;
+    background-color: red;
+    margin: 0.5em;
+    cursor: pointer;
+}
+.dice:hover{
+    background-color: pink;
+}
+.dice img{
+    object-fit: cover;
+    width: 100%;
+}
+
+.dice.blocked{
+    background-color: green;
+}
+.face{
+    visibility: visible;
+    width:2em;
+    height: 2em;
+    margin-top: 0.5em;
+}
+.feuille_de_score, th, td {
+    border: 1px solid black;
+   padding:0.5em;
+   text-align: center;
+  }

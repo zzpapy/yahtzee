@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    
+    <div id="plateau">
+        <div class="dice-container">
+            <div class='dice'>
+                <img src=''>
+            </div>
+        </div>
+        <div class="dice-container">
+            <div class='dice'>
+                <img src=''>
+            </div>
+            
+        </div>
+        <div class="dice-container">
+            <div class='dice'>
+                <img src=''>
+            </div>
+            
+        </div>
+        <div class="dice-container">
+            <div class='dice'>
+                <img src=''>
+            </div>
+            
+        </div>
+        <div class="dice-container">
+            <div class='dice'>
+                <img src=''>
+            </div>
+           
+        </div>
+       
+    </div>
+    <div id="controls">
+        <button id="roll">Lancer</button>
+        <button id="stop">Stop</button>
+        <div id="makeScore">Veuillez faire un choix sur la grille</div>
+        <div class="parties"></div>
+    </div>
+    
+    <div id="score">
+        <table>
+            <tr>
+                <td>Combinaisons</td>
+                <td>Calcul du score</td>
+                <td>Score</td>
+            </tr>
+            <tr>
+                <td><img class="face"src="img/inverted-dice-1.png" alt="face un"> = 1</td>
+                <td>Additionner le nbr de 1</td>
+                <td data-value="1" class="choix_score"></td>
+            </tr>
+            <tr>
+                <td><img class="face" src="img/inverted-dice-2.png" alt="face un"> = 2</td>
+                <td>Additionner le nbr de 2</td>
+                <td  data-value="2" class="choix_score"></td>
+            </tr>
+            <tr>
+                <td><img class="face" src="img/inverted-dice-3.png" alt="face un"> = 3</td>
+                <td>Additionner le nbr de 3</td>
+                <td  data-value="3" class="choix_score"></td>
+            </tr>
+            <tr>
+                <td><img class="face" src="img/inverted-dice-4.png" alt="face un"> = 4</td>
+                <td>Additionner le nbr de 4</td>
+                <td  data-value="4" class="choix_score"></td>
+            </tr>
+            <tr>
+                <td><img class="face" src="img/inverted-dice-5.png" alt="face un"> = 5</td>
+                <td>Additionner le nbr de 5</td>
+                <td  data-value="5" class="choix_score"></td>
+            </tr>
+            <tr>
+                <td><img class="face" src="img/inverted-dice-6.png" alt="face un"> = 6</td>
+                <td>Additionner le nbr de 6</td>
+                <td  data-value="6" class="choix_score"></td>
+            </tr>
+            <tr>
+                <td>TOTAL</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Score</td>
+            </tr>
+            <tr>
+                <td>Brelan</td>
+                <td>Additionner la valeur des dés</td>
+                <td data-value="brelan" class="choix_score"></td>
+            </tr>
+            <tr>
+                <td>Carré</td>
+                <td>Additionner la valeur des dés</td>
+                <td data-value="carre" class="choix_score"></td>
+            </tr>
+            <tr>
+                <td>Full</td>
+                <td>Score 25</td>
+                <td data-value="full" class="choix_score"></td>
+            </tr>
+            <tr>
+                <td>Petite suite</td>
+                <td>Score 30</td>
+                <td data-value="psuite" class="choix_score"></td>
+            </tr>
+            <tr>
+                <td>Grande suite</td>
+                <td>Score 40</td>
+                <td data-value="gsuite" class="choix_score"></td>
+            </tr>
+            <tr>
+                <td>YAHTZEE</td>
+                <td>5 dés identique</td>
+                <td data-value="YAHTZ" class="choix_score"></td>
+            </tr>
+            <tr>
+                <td>Chance</td>
+                <td>Total des 5 dés</td>
+                <td data-value="YAHTZ" class="choix_score"chance></td>
+            </tr>
+            <tr>
+                <td>YAHTZEE BONUS</td>
+                <td></td>
+                <td data-value="bonus" class="choix_score"></td>
+            </tr>
+            <tr>
+                <td>TOTAL</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>GRAND TOTAL</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+<script src="script.js"></script>
+</body>
+</html>
