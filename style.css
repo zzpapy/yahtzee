@@ -1,6 +1,10 @@
+.flex{
+    display: flex;
+}
 #plateau{
     display: flex;
     flex-wrap:wrap;
+    justify-content: center;
 }
 .dice-container{
     display: flex;
