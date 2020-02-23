@@ -10,16 +10,8 @@
     
 </head>
 <body>
-    <div class="container">
-    <div class="cube cube1">
-        <div class="top"></div>
-        <div class="front"></div>
-        <div class="left"></div>
-        <div class="back"></div>
-        <div class="right"></div>
-        <div class="bottom"></div>
-    </div>
-    <div id="plateau">
+    <div id="plateau" class="flex">
+        <div class="nom"></div>
         <div class="dice-container">
             <div class='dice'>
                 <img src=''>
@@ -49,7 +41,16 @@
             </div>
            
         </div>
-       
+       <div class="joueurs">
+            <select name="joueurs" id="joueurs">
+                <option value="">Nombres de joueurs</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+            <div class="nbr"></div>
+       </div>
         <div id="controls">
             <button id="roll">Lancer</button>
             <button id="stop">Stop</button>
@@ -70,37 +71,37 @@
                     <th colspan="4">Combinaison simples</th>
                 </tr>
                 <tr class="raye">
-                    <td><img class="face"src="img/inverted-dice-1.png" alt="face un"> = 1</td>
+                    <td><img class="face"src="img/inverted-dice-1.png" alt="face un"></td>
                     <td>Additionner le nbr de 1</td>
                     <td data-value="1" class="choix_score upper">0</td>
                     <td class="choix2"><i class="cross"></i></td>
                 </tr>
                 <tr class="raye">
-                    <td><img class="face" src="img/inverted-dice-2.png" alt="face un"> = 2</td>
+                    <td><img class="face" src="img/inverted-dice-2.png" alt="face un"></td>
                     <td>Additionner le nbr de 2</td>
                     <td  data-value="2" class="choix_score upper">0</td>
                     <td class="choix2"><i></i></td>
                 </tr>
                 <tr class="raye">
-                    <td><img class="face" src="img/inverted-dice-3.png" alt="face un"> = 3</td>
+                    <td><img class="face" src="img/inverted-dice-3.png" alt="face un"></td>
                     <td>Additionner le nbr de 3</td>
                     <td  data-value="3" class="choix_score upper">0</td>
                     <td class="choix2"><i></i></td>
                 </tr>
                 <tr class="raye">
-                    <td><img class="face" src="img/inverted-dice-4.png" alt="face un"> = 4</td>
+                    <td><img class="face" src="img/inverted-dice-4.png" alt="face un"></td>
                     <td>Additionner le nbr de 4</td>
                     <td  data-value="4" class="choix_score upper">0</td>
                     <td class="choix2"><i></i></td>
                 </tr>
                 <tr class="raye">
-                    <td><img class="face" src="img/inverted-dice-5.png" alt="face un"> = 5</td>
+                    <td><img class="face" src="img/inverted-dice-5.png" alt="face un"></td>
                     <td>Additionner le nbr de 5</td>
                     <td  data-value="5" class="choix_score upper">0</td>
                     <td class="choix2"><i></i></td>
                 </tr>
                 <tr class="raye">
-                    <td><img class="face" src="img/inverted-dice-6.png" alt="face un"> = 6</td>
+                    <td><img class="face" src="img/inverted-dice-6.png" alt="face un"></td>
                     <td>Additionner le nbr de 6</td>
                     <td  data-value="6" class="choix_score upper">0</td>
                     <td class="choix2"><i></i></td>
