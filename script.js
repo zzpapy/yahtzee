@@ -1,3 +1,4 @@
+console.log('test');
 class Joueur { 
     constructor(nom,nbLancer,nbParties,finJeu,total,total1,grandTotal) 
     { 
