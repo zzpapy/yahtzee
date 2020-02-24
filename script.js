@@ -1,6 +1,6 @@
 console.log('test');
 class Joueur { 
-    constructor(nom,nbLancer,nbParties,finJeu,total,total1,grandTotal) 
+    constructor(nom,nbLancer,nbParties,finJeu,total,total1,grandTotal,score) 
     { 
         this.nom = nom,
         this.nbLancer = nbLancer,
@@ -8,10 +8,10 @@ class Joueur {
         this.finJeu = finJeu,
         this.total = total,
         this.total1 = total1,
-        this.grandTotal = grandTotal
+        this.grandTotal = grandTotal,
+        this.score = []
     }     
 } 
-// console.log(player)
 
 $('#joueurs').change(function test(){
     nbrJoueurs = $(this).val()
@@ -23,9 +23,18 @@ let player = new Joueur("tata",0,0,0,0,0,0);
 let player2 = new Joueur("toto",0,0,0,0,0,0);
 // let nbrJoueurs = 0;
 // console.log(player.nbLancer)
-Jeu(player)
-function Jeu (player){
-    $(".nom").html(player.nom)
+Jeu()
+function Jeu (jouer){
+    $(".next").hide()
+    $(".objet").data("objet",player)
+    joueur1 = $(".objet").data("objet")
+    $(".objet1").data("objet",player2)
+    joueur2 = $(".objet1").data("objet")
+    jouer = joueur1
+    console.log($(".objet").data("objet"))
+    $(".objet1").data("objet",player2)
+    console.log($(".objet").data("objet"))
+    $(".nom").html(jouer.nom)
     function randomDiceValue(){
     
         let nbAlea = Math.floor(((Math.random()*10)%6)+1)
@@ -33,7 +42,7 @@ function Jeu (player){
         return nbAlea
     }
     
-    $(".parties").html('Nombre de parties jouées : '+player.nbParties)
+    $(".parties").html('Nombre de parties jouées : '+jouer.nbParties)
     function endTurn(){
         $("#roll").hide()
         $("#stop").hide()
@@ -43,15 +52,15 @@ function Jeu (player){
         $("#roll").show()
         $("#stop").show()
         $("#makeScore").hide()
-        player.nbLancer = 0
+        jouer.nbLancer = 0
     }
     $(document).ready(function(){
         $("#plateau .dice").css("visibility", "hidden")
         $("#makeScore").hide()
     });
     $("#roll").click(function(){
-        $(this).data("nbrLancer",player.nbLancer)
-        player.nbLancer++
+        $(this).data("nbrLancer",jouer.nbLancer)
+        jouer.nbLancer++
         $("#plateau .dice").css("visibility", "visible")
         
         $(".dice:not(.blocked) img").each(function(){
@@ -65,24 +74,26 @@ function Jeu (player){
             
         })
         
-        if(player.nbLancer == 3){
-            player.nbParties++
+        if(jouer.nbLancer == 3){
+            jouer.nbParties++
             
-            $(".parties").html('Nombre de parties jouées : '+player.nbParties)
+            $(".parties").html('Nombre de parties jouées : '+jouer.nbParties)
             $(".raye").each(function(){
                 $(this).toggleClass("choix")
                 $(this).children(".choix_score + td").show()
                 $(this).children(".choix_score + td").html("<img style ='width:3em;height:3em' src = 'img/cross.png'>")
-                // if(palyer.finJeu == 2){
-                //     $("#plateau").remove()
-                //     $("#score").remove()
-                //     $(".fini").html("<div>C'EST FINI</div>")
-                //     $(".fini").append(grandTotal)
-                //     console.log(grandTotal)
-                //     // $(".fin").html(grandTotal)
-                // }
+                // player = $(".objet").data("objet")
+                if(player.finJeu == 2){
+                    $("#plateau").remove()
+                    $("#score").remove()
+                    $(".fini").html("<div>C'EST FINI</div>")
+                    $(".fini").append(grandTotal)
+                    console.log(grandTotal)
+                    // $(".fin").html(grandTotal)
+                }
             })
-            palyer.finJeu++
+           
+            jouer.finJeu++
             endTurn()
         }
     })
@@ -97,7 +108,7 @@ function Jeu (player){
             })
             
             $(".dice.blocked").toggleClass("blocked")
-            player.nbLancer++
+            jouer.nbLancer++
         $(".dice:not(.blocked) img").each(function(){
         
             let nbAlea = randomDiceValue()
@@ -108,6 +119,19 @@ function Jeu (player){
             $(this).data("nb", nbAlea)
             
         })
+        if(jouer == $(".objet").data("objet")){
+            jouer = $(".objet1").data("objet")
+            console.log(jouer)
+        }
+        else{
+            jouer = $(".objet").data("objet")
+        }
+        // $(".nom").html("")
+        // $(".nom").html(jouer.nom)
+        // $(".choix_score").each(function(){
+        //     jouer.score.push($(this).html())            
+        // })
+        // console.log(jouer.score)
         startTurn();
     })
     
@@ -125,8 +149,8 @@ function Jeu (player){
     })
     
     $("#stop").click(function(){
-        player.nbParties++
-        $(".parties").html('Nombre de parties jouées : '+player.nbParties)
+        jouer.nbParties++
+        $(".parties").html('Nombre de parties jouées : '+jouer.nbParties)
         endTurn()
     })
     
@@ -151,8 +175,8 @@ function Jeu (player){
                     $(this).empty()
                 $(this).append(somme)
                 startTurn()
-                player.nbParties++
-                $(".parties").html('Nombre de parties jouées : '+player.nbParties)
+                jouer.nbParties++
+                $(".parties").html('Nombre de parties jouées : '+jouer.nbParties)
     
                 $(".dice.blocked").toggleClass("blocked")
                 }
@@ -163,8 +187,8 @@ function Jeu (player){
                         $(this).empty()
                         $(this).append(somme)
                         startTurn()
-                        player.nbParties++
-                        $(".parties").html('Nombre de parties jouées : '+player.nbParties)
+                        jouer.nbParties++
+                        $(".parties").html('Nombre de parties jouées : '+jouer.nbParties)
     
                         $(".dice.blocked").toggleClass("blocked")
                         break;
@@ -172,8 +196,8 @@ function Jeu (player){
                         $(this).empty()
                         $(this).append(somme)
                         startTurn()
-                        player.nbParties++
-                        $(".parties").html('Nombre de parties jouées : '+player.nbParties)
+                        jouer.nbParties++
+                        $(".parties").html('Nombre de parties jouées : '+jouer.nbParties)
     
                         $(".dice.blocked").toggleClass("blocked")
                         break;
@@ -186,8 +210,8 @@ function Jeu (player){
                         $(this).empty()
                         $(this).append("50")
                         startTurn()
-                        player.nbParties++
-                        $(".parties").html('Nombre de parties jouées : '+player.nbParties)
+                        jouer.nbParties++
+                        $(".parties").html('Nombre de parties jouées : '+jouer.nbParties)
     
                         $(".dice.blocked").toggleClass("blocked")
                         break;
@@ -222,8 +246,8 @@ function Jeu (player){
                     $(this).empty()
                     $(this).append("25")
                     startTurn()
-                    player.nbParties++
-                    $(".parties").html('Nombre de parties jouées : '+player.nbParties)
+                    jouer.nbParties++
+                    $(".parties").html('Nombre de parties jouées : '+jouer.nbParties)
             
                     $(".dice.blocked").toggleClass("blocked")
                 }
@@ -242,8 +266,8 @@ function Jeu (player){
                         $(this).empty()
                         $(this).append("30")
                         startTurn()
-                        player.nbParties++
-                        $(".parties").html('Nombre de parties jouées : '+player.nbParties)
+                        jouer.nbParties++
+                        $(".parties").html('Nombre de parties jouées : '+jouer.nbParties)
                 
                         $(".dice.blocked").toggleClass("blocked")
                     }
@@ -266,8 +290,8 @@ function Jeu (player){
                         $(this).empty()
                         $(this).append("30")
                         startTurn()
-                        player.nbParties++
-                        $(".parties").html('Nombre de parties jouées : '+player.nbParties)
+                        jouer.nbParties++
+                        $(".parties").html('Nombre de parties jouées : '+jouer.nbParties)
                 
                         $(".dice.blocked").toggleClass("blocked")
                     }
@@ -287,8 +311,8 @@ function Jeu (player){
                         $(this).empty()
                         $(this).append("40")
                         startTurn()
-                        player.nbParties++
-                        $(".parties").html('Nombre de parties jouées : '+player.nbParties)
+                        jouer.nbParties++
+                        $(".parties").html('Nombre de parties jouées : '+jouer.nbParties)
                 
                         $(".dice.blocked").toggleClass("blocked")
                     }
@@ -297,19 +321,19 @@ function Jeu (player){
             }
         }
         // console.log(grandTotal)
-        player.total = 0
+        jouer.total = 0
         $(".upper").each(function(){
-            player.total += parseInt($(this).html())
+            jouer.total += parseInt($(this).html())
         })
-        $(".total_upper").html(player.total)
-        player.total1 = 0
+        $(".total_upper").html(jouer.total)
+        jouer.total1 = 0
         $(".lower").each(function(){
             // total1+= parseInt($(this).html())
-            player.total1 += parseInt($(this).html())
+            jouer.total1 += parseInt($(this).html())
         })
-        $(".total_lower").html(player.total1)
-        player.grandTotal = player.total + player.total1
-        $(".grand_total").html(player.grandTotal)
+        $(".total_lower").html(jouer.total1)
+        jouer.grandTotal = jouer.total + jouer.total1
+        $(".grand_total").html(jouer.grandTotal)
         // console.log(grandTotal,total,total1,nbParties)
         
         $(".choix").each(function(){
@@ -318,7 +342,7 @@ function Jeu (player){
                 $(this).children(".choix_score + td").html("")
             })
         })
-        player.nbLancer++
+        jouer.nbLancer++
         $(".dice:not(.blocked) img").each(function(){
         
             let nbAlea = randomDiceValue()
@@ -329,13 +353,42 @@ function Jeu (player){
             $(this).data("nb", nbAlea)
             
         })
-        // if(palyer.finJeu == 2){
-        //     $("#plateau").remove()
-        //     $(".flex").remove()
-        //     $(".fini").html("<div>C'EST FINI</div>")
-        //     $(".fini").append(grandTotal)
-        //     console.log(grandTotal)
-        // }
+        $(".choix_score").each(function(){
+            jouer.score.push($(this).html())
+        })
+        i=0
+        $(".next").show()
+        setTimeout(function (){
+            i++
+            setInterval(function(){
+                $(".next").append("<span>"+i+"</span>")
+                $(".next span").remove()
+            })
+            $(".choix_score").each(function(){
+                $(this).html("0")           
+            })
+            console.log(jouer.score)
+            if(jouer == $(".objet").data("objet")){
+                jouer = $(".objet1").data("objet")
+                console.log(jouer)
+            }
+            else{
+                jouer = $(".objet").data("objet")
+            }
+            $(".nom").html("")
+            $(".nom").html(jouer.nom)
+            $(".next").append("<span>"+i+"</span>")
+            $(".next span").remove()
+
+        },5000)
+        $(".next").hide()
+        if(jouer.finJeu == 2){
+            $("#plateau").remove()
+            $(".flex").remove()
+            $(".fini").html("<div>C'EST FINI</div>")
+            $(".fini").append(grandTotal)
+            console.log(grandTotal)
+        }
         
        
     })
