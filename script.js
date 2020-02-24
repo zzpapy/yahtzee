@@ -25,7 +25,6 @@ let player2 = new Joueur("toto",0,0,0,0,0,0);
 // console.log(player.nbLancer)
 Jeu()
 function Jeu (jouer){
-    $(".next").hide()
     $(".objet").data("objet",player)
     joueur1 = $(".objet").data("objet")
     $(".objet1").data("objet",player2)
@@ -99,41 +98,57 @@ function Jeu (jouer){
     })
     $(".choix2").click(function(){
         $(this).closest("tr").remove()
-            $(".choix").each(function(){
-                $(".raye.choix").each(function(){
-                    $(this).toggleClass("choix")
-                    $(this).children(".choix_score + td").html("")
-                    $(this).children(".choix_score + td").hide()
-                })
+        $(".choix").each(function(){
+            $(".raye.choix").each(function(){
+                $(this).toggleClass("choix")
+                $(this).children(".choix_score + td").html("")
+                $(this).children(".choix_score + td").hide()
             })
+        })
             
             $(".dice.blocked").toggleClass("blocked")
             jouer.nbLancer++
-        $(".dice:not(.blocked) img").each(function(){
+            $(".dice:not(.blocked) img").each(function(){
         
-            let nbAlea = randomDiceValue()
-            
-            let pathImg = "./img/inverted-dice-"+nbAlea+".png";
-            
-            $(this).attr("src", pathImg)
-            $(this).data("nb", nbAlea)
-            
-        })
-        if(jouer == $(".objet").data("objet")){
-            jouer = $(".objet1").data("objet")
-            console.log(jouer)
+                let nbAlea = randomDiceValue()
+                
+                let pathImg = "./img/inverted-dice-"+nbAlea+".png";
+                
+                $(this).attr("src", pathImg)
+                $(this).data("nb", nbAlea)
+                
+            })
+            i = 0
+            var sec = 2;
+        var timer = setInterval(tick, 1000);
+        function tick()
+        {
+            $(".next").show()
+            $('.next').html('<div>Il reste ' + sec + ' seconde(s)</div>')
+            console.log('toto')
+            sec--;
         }
-        else{
-            jouer = $(".objet").data("objet")
-        }
-        // $(".nom").html("")
-        // $(".nom").html(jouer.nom)
-        // $(".choix_score").each(function(){
-        //     jouer.score.push($(this).html())            
-        // })
-        // console.log(jouer.score)
+        setTimeout(function (){
+            $(".choix_score").each(function(){
+                $(this).html("0")           
+            })
+            console.log(jouer.score)
+            if(jouer == $(".objet").data("objet")){
+                jouer = $(".objet1").data("objet")
+                console.log(jouer)
+            }
+            else{
+                jouer = $(".objet").data("objet")
+            }
+            $(".nom").html("")
+            $(".nom").html(jouer.nom)
+            console.log(i)
+            clearInterval(timer);
+            $(".next").hide()
+        },2000)
         startTurn();
     })
+   
     
     
     $(".dice").click(function(){
@@ -353,17 +368,21 @@ function Jeu (jouer){
             $(this).data("nb", nbAlea)
             
         })
+        i = 0
         $(".choix_score").each(function(){
             jouer.score.push($(this).html())
         })
-        i=0
-        $(".next").show()
+        
+        sec = 2
+        var timer = setInterval(tick, 1000);
+        function tick()
+        {
+            $(".next").show()
+            $('.next').html('<div>Il reste ' + sec + ' seconde(s)</div>')
+            console.log('toto')
+            sec--;
+        }
         setTimeout(function (){
-            i++
-            setInterval(function(){
-                $(".next").append("<span>"+i+"</span>")
-                $(".next span").remove()
-            })
             $(".choix_score").each(function(){
                 $(this).html("0")           
             })
@@ -377,11 +396,17 @@ function Jeu (jouer){
             }
             $(".nom").html("")
             $(".nom").html(jouer.nom)
-            $(".next").append("<span>"+i+"</span>")
-            $(".next span").remove()
+            i = 0
+            $(".choix_score").each(function(){
+                $(this).html(jouer.score[i])
+                i++
+            })
+            console.log(jouer.score)
+            
+            clearInterval(timer);
+            $(".next").hide()
 
-        },5000)
-        $(".next").hide()
+        },2000)
         if(jouer.finJeu == 2){
             $("#plateau").remove()
             $(".flex").remove()
