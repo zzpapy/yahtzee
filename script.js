@@ -18,6 +18,97 @@ $('#joueurs').change(function test(){
     $('.nbr').html(nbrJoueurs)
     
 })
+function finJeu (nb){
+    if(joueur2.finJeu == nb){
+        $("#plateau").remove()
+        $(".flex").remove()
+        $(".fini").html("<div>C'EST FINI</div>")
+        $(".fini").append('<div> score joueur1 : '+joueur1.grandTotal+'</div')
+        $(".fini").append('<div>score joueur2 :'+joueur2.grandTotal+'</div')
+    }
+}
+function changeJoueur (jouer){
+    console.log(jouer)
+    i = 0
+        $(".choix_score").each(function(){
+            jouer.score[i] = $(this).html()
+            i++
+        })
+        $(".total_lower").html("0")
+        $(".total_upper").html("0")    
+        jouer.total = 0
+        $(".upper").each(function(){
+            jouer.total += parseInt($(this).html())
+        })
+        $(".total_upper").html(jouer.total)
+        jouer.total1 = 0
+        $(".lower").each(function(){
+            // total1+= parseInt($(this).html())
+            jouer.total1 += parseInt($(this).html())
+        })
+        $(".total_lower").html(jouer.total1)
+        jouer.grandTotal = jouer.total + jouer.total1
+        $(".grand_total").html(jouer.grandTotal)
+        console.log(jouer.grandTotal,jouer.total,jouer.total1,jouer.nbParties)
+        
+        $(".choix").each(function(){
+            $(".raye.choix").each(function(){
+                $(this).toggleClass("choix")
+                $(this).children(".choix_score + td").html("")
+            })
+        })
+        jouer.nbLancer++
+        
+        sec = 2
+       
+        var timer = setInterval(tick, 1000);
+        function tick()
+        {
+            $(".next").show()
+            $('.next').html('<div>Il reste ' + sec + ' seconde(s)</div>')
+            console.log('toto')
+            sec--;
+        }
+        setTimeout(function (){
+            $(".choix_score").each(function(){
+                $(this).html("0")           
+            })
+            console.log(jouer.score)
+            if(jouer == $(".objet").data("objet")){
+                jouer = $(".objet1").data("objet")
+                console.log(jouer)
+            }
+            else{
+                jouer = $(".objet").data("objet")
+            }
+            $(".nom").html("")
+            $(".nom").html(jouer.nom)
+            i = 0
+            $(".choix_score").each(function(){
+                $(this).html(jouer.score[i])
+                i++
+            })
+            jouer.total = 0
+            $(".upper").each(function(){
+                jouer.total += parseInt($(this).html())
+            })
+            $(".total_upper").html(jouer.total)
+            jouer.total1 = 0
+            $(".lower").each(function(){
+                // total1+= parseInt($(this).html())
+                jouer.total1 += parseInt($(this).html())
+            })
+            $(".total_lower").html(jouer.total1)
+            jouer.grandTotal = jouer.total + jouer.total1
+            $(".grand_total").html(jouer.grandTotal)
+            console.log(jouer.score)
+            
+            clearInterval(timer);
+            $(".next").hide()
+            jouer.finJeu++
+
+        },2000)
+}
 
 let player = new Joueur("tata",0,0,0,0,0,0);
 let player2 = new Joueur("toto",0,0,0,0,0,0);
@@ -82,14 +173,7 @@ function Jeu (jouer){
                 $(this).children(".choix_score + td").show()
                 $(this).children(".choix_score + td").html("<img style ='width:3em;height:3em' src = 'img/cross.png'>")
                 // player = $(".objet").data("objet")
-                if(player.finJeu == 2){
-                    $("#plateau").remove()
-                    $("#score").remove()
-                    $(".fini").html("<div>C'EST FINI</div>")
-                    $(".fini").append(grandTotal)
-                    console.log(grandTotal)
-                    // $(".fin").html(grandTotal)
-                }
+                finJeu(5)
             })
            
             jouer.finJeu++
@@ -118,6 +202,8 @@ function Jeu (jouer){
                 $(this).data("nb", nbAlea)
                 
             })
+            // changeJoueur(jouer)
+            
             i = 0
             var sec = 2;
         var timer = setInterval(tick, 1000);
@@ -125,9 +211,29 @@ function Jeu (jouer){
         {
             $(".next").show()
             $('.next').html('<div>Il reste ' + sec + ' seconde(s)</div>')
-            console.log('toto')
             sec--;
         }
+        i = 0
+        $(".choix_score").each(function(){
+            jouer.score[i] = $(this).html()
+            i++
+        })
+        $(".total_lower").html("0")
+        $(".total_upper").html("0")    
+        jouer.total = 0
+        $(".upper").each(function(){
+            jouer.total += parseInt($(this).html())
+        })
+        $(".total_upper").html(jouer.total)
+        jouer.total1 = 0
+        $(".lower").each(function(){
+            // total1+= parseInt($(this).html())
+            jouer.total1 += parseInt($(this).html())
+        })
+        $(".total_lower").html(jouer.total1)
+        jouer.grandTotal = jouer.total + jouer.total1
+        $(".grand_total").html(jouer.grandTotal)
+        console.log(jouer.grandTotal,jouer.total,jouer.total1,jouer.nbParties)
         setTimeout(function (){
             $(".choix_score").each(function(){
                 $(this).html("0")           
@@ -336,6 +442,24 @@ function Jeu (jouer){
             }
         }
         // console.log(grandTotal)
+        $(".dice:not(.blocked) img").each(function(){
+            
+            let nbAlea = randomDiceValue()
+            
+            let pathImg = "./img/inverted-dice-"+nbAlea+".png";
+            
+            $(this).attr("src", pathImg)
+            $(this).data("nb", nbAlea)
+            
+        })
+        // changeJoueur(jouer)
+        i = 0
+        $(".choix_score").each(function(){
+            jouer.score[i] = $(this).html()
+            i++
+        })
+        $(".total_lower").html("0")
+        $(".total_upper").html("0")    
         jouer.total = 0
         $(".upper").each(function(){
             jouer.total += parseInt($(this).html())
@@ -349,7 +473,7 @@ function Jeu (jouer){
         $(".total_lower").html(jouer.total1)
         jouer.grandTotal = jouer.total + jouer.total1
         $(".grand_total").html(jouer.grandTotal)
-        // console.log(grandTotal,total,total1,nbParties)
+        console.log(jouer.grandTotal,jouer.total,jouer.total1,jouer.nbParties)
         
         $(".choix").each(function(){
             $(".raye.choix").each(function(){
@@ -358,22 +482,9 @@ function Jeu (jouer){
             })
         })
         jouer.nbLancer++
-        $(".dice:not(.blocked) img").each(function(){
-        
-            let nbAlea = randomDiceValue()
-            
-            let pathImg = "./img/inverted-dice-"+nbAlea+".png";
-            
-            $(this).attr("src", pathImg)
-            $(this).data("nb", nbAlea)
-            
-        })
-        i = 0
-        $(".choix_score").each(function(){
-            jouer.score.push($(this).html())
-        })
         
         sec = 2
+       
         var timer = setInterval(tick, 1000);
         function tick()
         {
@@ -401,19 +512,36 @@ function Jeu (jouer){
                 $(this).html(jouer.score[i])
                 i++
             })
+            jouer.total = 0
+            $(".upper").each(function(){
+                jouer.total += parseInt($(this).html())
+            })
+            $(".total_upper").html(jouer.total)
+            jouer.total1 = 0
+            $(".lower").each(function(){
+                // total1+= parseInt($(this).html())
+                jouer.total1 += parseInt($(this).html())
+            })
+            $(".total_lower").html(jouer.total1)
+            jouer.grandTotal = jouer.total + jouer.total1
+            $(".grand_total").html(jouer.grandTotal)
             console.log(jouer.score)
             
             clearInterval(timer);
             $(".next").hide()
+            jouer.finJeu++
 
         },2000)
-        if(jouer.finJeu == 2){
-            $("#plateau").remove()
-            $(".flex").remove()
-            $(".fini").html("<div>C'EST FINI</div>")
-            $(".fini").append(grandTotal)
-            console.log(grandTotal)
-        }
+        console.log(joueur2)
+        startTurn()
+        finJeu(5)
+        // if(joueur2.finJeu == 2){
+        //     $("#plateau").remove()
+        //     $(".flex").remove()
+        //     $(".fini").html("<div>C'EST FINI</div>")
+        //     $(".fini").append('<div> score joueur1 : '+joueur1.grandTotal+'</div')
+        //     $(".fini").append('<div>score joueur2 :'+joueur2.grandTotal+'</div')
+        // }
         
        
     })
