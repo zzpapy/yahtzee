@@ -1,17 +1,6 @@
-console.log('test');
-class Joueur { 
-    constructor(nom,nbLancer,nbParties,finJeu,total,total1,grandTotal,score) 
-    { 
-        this.nom = nom,
-        this.nbLancer = nbLancer,
-        this.nbParties = nbParties,
-        this.finJeu = finJeu,
-        this.total = total,
-        this.total1 = total1,
-        this.grandTotal = grandTotal,
-        this.score = []
-    }     
-} 
+
+let yahtzee = new Yahtzee()
+$("#score").html(yahtzee.renderTable())
 
 $('#joueurs').change(function test(){
     nbrJoueurs = $(this).val()
@@ -74,12 +63,12 @@ function changeJoueur (jouer){
                 $(this).html("0")           
             })
             console.log(jouer.score)
-            if(jouer == $(".objet").data("objet")){
-                jouer = $(".objet1").data("objet")
+            if(jouer == player){
+                jouer = player2
                 console.log(jouer)
             }
             else{
-                jouer = $(".objet").data("objet")
+                jouer = player
             }
             $(".nom").html("")
             $(".nom").html(jouer.nom)
@@ -110,20 +99,16 @@ function changeJoueur (jouer){
         },2000)
 }
 
-let player = new Joueur("tata",0,0,0,0,0,0);
-let player2 = new Joueur("toto",0,0,0,0,0,0);
+var player = yahtzee.player;
+var player2 = yahtzee.player2;
+
 // let nbrJoueurs = 0;
 // console.log(player.nbLancer)
 Jeu()
 function Jeu (jouer){
-    $(".objet").data("objet",player)
-    joueur1 = $(".objet").data("objet")
-    $(".objet1").data("objet",player2)
-    joueur2 = $(".objet1").data("objet")
+    joueur1 = player
+    joueur2 = player2
     jouer = joueur1
-    console.log($(".objet").data("objet"))
-    $(".objet1").data("objet",player2)
-    console.log($(".objet").data("objet"))
     $(".nom").html(jouer.nom)
     function randomDiceValue(){
     
@@ -172,7 +157,7 @@ function Jeu (jouer){
                 $(this).toggleClass("choix")
                 $(this).children(".choix_score + td").show()
                 $(this).children(".choix_score + td").html("<img style ='width:3em;height:3em' src = 'img/cross.png'>")
-                // player = $(".objet").data("objet")
+                // player = player
                 finJeu(5)
             })
            
@@ -239,16 +224,15 @@ function Jeu (jouer){
                 $(this).html("0")           
             })
             console.log(jouer.score)
-            if(jouer == $(".objet").data("objet")){
-                jouer = $(".objet1").data("objet")
+            if(jouer == player){
+                jouer = player2
                 console.log(jouer)
             }
             else{
-                jouer = $(".objet").data("objet")
+                jouer = player
             }
             $(".nom").html("")
             $(".nom").html(jouer.nom)
-            console.log(i)
             clearInterval(timer);
             $(".next").hide()
         },2000)
@@ -289,7 +273,6 @@ function Jeu (jouer){
         })
         const allEqual = arr => arr.every( v => v === arr[0] )
         
-        // console.log(tab);
         if(allEqual(tab )){
             if(tab[0]==$(this).data("value") && $.isNumeric($(this).data("value"))){
                 if($(this).html() == "0"){
@@ -303,6 +286,7 @@ function Jeu (jouer){
                 }
             }
             else if(allEqual(tab ) && !($.isNumeric($(this).data("value")))){
+                console.log(tab)
                 switch(true) {
                     case tab.length ==3 && $(this).data("value") == "brelan":
                         $(this).empty()
@@ -392,10 +376,8 @@ function Jeu (jouer){
                 
                         $(".dice.blocked").toggleClass("blocked")
                     }
-                    console.log(tab[i] , psuite[i]);
                 }         
                 else{
-                    console.log(tab[i] , psuite[i]);
                 }
                 
             }
@@ -473,7 +455,6 @@ function Jeu (jouer){
         $(".total_lower").html(jouer.total1)
         jouer.grandTotal = jouer.total + jouer.total1
         $(".grand_total").html(jouer.grandTotal)
-        console.log(jouer.grandTotal,jouer.total,jouer.total1,jouer.nbParties)
         
         $(".choix").each(function(){
             $(".raye.choix").each(function(){
@@ -490,20 +471,17 @@ function Jeu (jouer){
         {
             $(".next").show()
             $('.next').html('<div>Il reste ' + sec + ' seconde(s)</div>')
-            console.log('toto')
             sec--;
         }
         setTimeout(function (){
             $(".choix_score").each(function(){
                 $(this).html("0")           
             })
-            console.log(jouer.score)
-            if(jouer == $(".objet").data("objet")){
-                jouer = $(".objet1").data("objet")
-                console.log(jouer)
+            if(jouer == player){
+                jouer = player2
             }
             else{
-                jouer = $(".objet").data("objet")
+                jouer = player
             }
             $(".nom").html("")
             $(".nom").html(jouer.nom)
@@ -525,14 +503,12 @@ function Jeu (jouer){
             $(".total_lower").html(jouer.total1)
             jouer.grandTotal = jouer.total + jouer.total1
             $(".grand_total").html(jouer.grandTotal)
-            console.log(jouer.score)
             
             clearInterval(timer);
             $(".next").hide()
             jouer.finJeu++
 
         },2000)
-        console.log(joueur2)
         startTurn()
         finJeu(5)
         // if(joueur2.finJeu == 2){
